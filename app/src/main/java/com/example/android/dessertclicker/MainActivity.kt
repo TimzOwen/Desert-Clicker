@@ -18,6 +18,7 @@ package com.example.android.dessertclicker
 
 import android.content.ActivityNotFoundException
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -30,6 +31,11 @@ class MainActivity : AppCompatActivity() {
 
     private var revenue = 0
     private var dessertsSold = 0
+
+    // constant values in the class
+    companion object{
+        const val TAG = "MainActivity"
+    }
 
     // Contains all the views
     private lateinit var binding: ActivityMainBinding
@@ -62,8 +68,12 @@ class MainActivity : AppCompatActivity() {
 
     private var currentDessert = allDesserts[0]
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Log.d(TAG,"onCreate called ")
+
         // Use Data Binding to get reference to the views
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
@@ -144,5 +154,28 @@ class MainActivity : AppCompatActivity() {
             R.id.shareMenuButton -> onShare()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+
+    // life cycle implementation of the app
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG,"OnStart called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "OnStop called")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG,"OnPause called")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG,"onResume called ")
     }
 }
