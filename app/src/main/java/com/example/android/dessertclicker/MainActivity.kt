@@ -35,6 +35,8 @@ class MainActivity : AppCompatActivity() {
     // constant values in the class
     companion object{
         const val TAG = "MainActivity"
+        const val KEY_REVENUE = "revenue_key"
+        const val KEY_DESSERT_SOLD = "dessert_sold_key"
     }
 
     // Contains all the views
@@ -85,8 +87,24 @@ class MainActivity : AppCompatActivity() {
         binding.revenue = revenue
         binding.amountSold = dessertsSold
 
+        if (savedInstanceState != null){
+            revenue = savedInstanceState.getInt(KEY_REVENUE,0)
+            dessertsSold = savedInstanceState.getInt(KEY_REVENUE,0)
+            showCurrentDessert()
+        }
+
         // Make sure the correct dessert is showing
         binding.dessertButton.setImageResource(currentDessert.imageId)
+
+
+    }
+
+    // onsaved instance called
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Log.d(TAG,"onSaveInstance called")
+        outState.putInt(KEY_REVENUE,revenue)
+        outState.putInt(KEY_DESSERT_SOLD,dessertsSold)
     }
 
     /**
@@ -177,5 +195,10 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         Log.d(TAG,"onResume called ")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG,"OnDestroy called ")
     }
 }
